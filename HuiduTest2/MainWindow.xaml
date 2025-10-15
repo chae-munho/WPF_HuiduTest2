@@ -1,0 +1,48 @@
+﻿<Window x:Class="HuiduTest2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Huidu LED Weather Display"
+        Height="700" Width="1000"
+        Background="#F8F8F8">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- LEFT: Logs and Controls -->
+        <StackPanel Grid.Column="0">
+            <GroupBox Header="Controllers" FontWeight="Bold" Margin="0,0,0,10">
+                <ListBox x:Name="DeviceList"
+                         Height="150"
+                         SelectionChanged="DeviceList_SelectionChanged"/>
+            </GroupBox>
+
+            <GroupBox Header="Log" FontWeight="Bold" Margin="0,0,0,10">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="350">
+                    <TextBox x:Name="LogBox" 
+                             Background="Black" 
+                             Foreground="Lime"
+                             FontFamily="Consolas"
+                             TextWrapping="NoWrap"
+                             AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto"
+                             HorizontalScrollBarVisibility="Auto"
+                             IsReadOnly="True"/>
+                </ScrollViewer>
+            </GroupBox>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="PowerOnBtn" Content="전광판 켜기" Width="120" Margin="5" Click="PowerOnBtn_Click"/>
+                <Button x:Name="PowerOffBtn" Content="전광판 끄기" Width="120" Margin="5" Click="PowerOffBtn_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- RIGHT: Weather -->
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="현재 날씨" FontSize="28" FontWeight="Bold" Margin="0,0,0,20" />
+            <TextBlock x:Name="WeatherText" FontSize="48" FontWeight="Bold" Text="Loading..." Foreground="DarkBlue"/>
+            <TextBlock x:Name="TempText" FontSize="42" Foreground="DarkRed"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuiduTest2", "HuiduTest2\HuiduTest2.csproj", "{AC497E7F-5DE1-4AE5-BD4C-C5C7A2F426AC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC497E7F-5DE1-4AE5-BD4C-C5C7A2F426AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC497E7F-5DE1-4AE5-BD4C-C5C7A2F426AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC497E7F-5DE1-4AE5-BD4C-C5C7A2F426AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC497E7F-5DE1-4AE5-BD4C-C5C7A2F426AC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D05E93D-6937-4982-8D70-76E92BB06FF8}
+	EndGlobalSection
+EndGlobal
