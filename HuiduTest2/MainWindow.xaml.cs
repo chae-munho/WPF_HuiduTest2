@@ -111,6 +111,7 @@ namespace HuiduTest2
                 using (var client = new System.Net.Http.HttpClient())
                 {
                     var response = await client.GetStringAsync(url);
+                    Dispatcher.Invoke(() => Log("API Raw JSON:\n" + response));
                     JObject json = JObject.Parse(response);
 
                     string condition = json["weather"]?[0]?["description"] != null
@@ -145,6 +146,9 @@ namespace HuiduTest2
                 if (_selected == null) return;
 
                 var info = _selected.GetDeviceInfo();
+                Log($"Screen size: {info.screenWidth} x {info.screenHeight}, rotation=90°");
+
+                // 새 화면 및 프로그램 생성
                 var screen = new HdScreen(new ScreenParam() { isNewScreen = true });
                 var program = new HdProgram(new ProgramParam()
                 {
@@ -153,37 +157,62 @@ namespace HuiduTest2
                 });
                 screen.Programs.Add(program);
 
+                //---------------------------------------------------
+                // (1) 90° 회전 고려 — 폭/높이 반전
+                //---------------------------------------------------
                 var area = program.AddArea(new AreaParam()
                 {
                     guid = Guid.NewGuid().ToString(),
                     x = 0,
                     y = 0,
-                    width = info.screenWidth,
-                    height = info.screenHeight
+                    width = info.screenHeight,     // ← 실제 폭 (세로형 LED 보정)
+                    height = info.screenWidth      // ← 실제 높이
                 });
 
+                //---------------------------------------------------
+                // (2) 텍스트 설정 (스크롤)
+                //---------------------------------------------------
                 var textItem = new TextAreaItemParam()
                 {
                     guid = Guid.NewGuid().ToString(),
-                    text = text,
+                    text = text,                       // 예: "현재 날씨 약간의 구름이 낀 하늘 22.8℃"
                     fontName = "Arial",
-                    fontSize = 28,
-                    color = Color.Yellow
+                    fontSize = 20,
+                    color = Color.Yellow,
+                    bold = true,
+                    hAlignment = SDKLibrary.HorizontalAlignment.left,
+                    vAlignment = SDKLibrary.VerticalAlignment.middle,
+                    isSingleLine = true,
+                    useBackgroundColor = false
                 };
 
-                textItem.effect.inEffet = EffectType.IMMEDIATE_SHOW;
+                //---------------------------------------------------
+                // (3) 스크롤 효과
+                //---------------------------------------------------
+                textItem.effect.inEffet = EffectType.LEFT_SERIES_MOVE;
                 textItem.effect.outEffet = EffectType.NOT_CLEAR_AREA;
-                textItem.effect.duration = 5;
+                textItem.effect.duration = 15;   // 조금 더 느리게
 
                 area.AddText(textItem);
+
+                //---------------------------------------------------
+                // (4) 전송
+                //---------------------------------------------------
                 _selected.SendScreen(screen);
-                Log("LED updated: " + text);
+                Log($"LED updated (scroll, rotated 90°): \"{text}\"");
             }
             catch (Exception ex)
             {
                 Log("LED send error: " + ex.Message);
             }
         }
+
+
+
+
+
+
+
 
         // 전광판 전원 켜기
         private void PowerOnBtn_Click(object sender, RoutedEventArgs e)
