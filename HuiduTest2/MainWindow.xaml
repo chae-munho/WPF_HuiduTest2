@@ -13,9 +13,15 @@
         <!-- LEFT: Logs and Controls -->
         <StackPanel Grid.Column="0">
             <GroupBox Header="Controllers" FontWeight="Bold" Margin="0,0,0,10">
+              
+                    
                 <ListBox x:Name="DeviceList"
-                         Height="150"
-                         SelectionChanged="DeviceList_SelectionChanged"/>
+                    Height="150"
+                    SelectionChanged="DeviceList_SelectionChanged"/> 
+                    
+
+               
+              
             </GroupBox>
 
             <GroupBox Header="Log" FontWeight="Bold" Margin="0,0,0,10">

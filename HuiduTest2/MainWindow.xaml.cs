@@ -19,7 +19,7 @@ namespace HuiduTest2
         private Device _selected;
         private Timer _weatherTimer;
 
-        // ✅ OpenWeatherMap API
+        //  OpenWeatherMap API
         private const string API_KEY = "c4d7023ec1c989df75f403cb5f291963";
         private const double LAT = 37.5665;  // 서울
         private const double LON = 126.9780;
@@ -31,7 +31,7 @@ namespace HuiduTest2
 
             InitSdk();
 
-            // ✅ 3초마다 날씨 자동 갱신
+            //  3초마다 날씨 자동 갱신
             _weatherTimer = new Timer(3000);
             _weatherTimer.Elapsed += async (s, e) => await UpdateWeatherAsync();
             _weatherTimer.Start();
@@ -99,7 +99,7 @@ namespace HuiduTest2
             });
         }
 
-        // ✅ 날씨 자동 업데이트
+        // 날씨 자동 업데이트
         private async Task UpdateWeatherAsync()
         {
             try
@@ -133,11 +133,11 @@ namespace HuiduTest2
             }
             catch (Exception ex)
             {
-                Dispatcher.Invoke(delegate { Log("⚠️ Weather update error: " + ex.Message); });
+                Dispatcher.Invoke(delegate { Log("Weather update error: " + ex.Message); });
             }
         }
 
-        // ✅ 전광판으로 텍스트 출력
+        //  전광판으로 텍스트 출력
         private void SendToLed(string text)
         {
             try
@@ -185,7 +185,7 @@ namespace HuiduTest2
             }
         }
 
-        // ✅ 전광판 전원 켜기
+        // 전광판 전원 켜기
         private void PowerOnBtn_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -204,7 +204,7 @@ namespace HuiduTest2
             }
         }
 
-        // ✅ 전광판 전원 끄기
+        //  전광판 전원 끄기
         private void PowerOffBtn_Click(object sender, RoutedEventArgs e)
         {
             try
