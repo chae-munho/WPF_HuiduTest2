@@ -170,28 +170,28 @@ namespace HuiduTest2
                 });
 
                 //---------------------------------------------------
-                // (2) 텍스트 설정 (스크롤)
+                // (2) 텍스트 설정 (고정 표시)
                 //---------------------------------------------------
                 var textItem = new TextAreaItemParam()
                 {
                     guid = Guid.NewGuid().ToString(),
                     text = text,                       // 예: "현재 날씨 약간의 구름이 낀 하늘 22.8℃"
                     fontName = "Arial",
-                    fontSize = 20,
+                    fontSize = 18,                      // 크기 살짝 줄이면 짤림 방지
                     color = Color.Yellow,
                     bold = true,
-                    hAlignment = SDKLibrary.HorizontalAlignment.left,
-                    vAlignment = SDKLibrary.VerticalAlignment.middle,
-                    isSingleLine = true,
+                    hAlignment = SDKLibrary.HorizontalAlignment.center, // 중앙 정렬
+                    vAlignment = SDKLibrary.VerticalAlignment.middle,   // 수직 중앙 정렬
+                    isSingleLine = false,               // 여러 줄 표시 허용
                     useBackgroundColor = false
                 };
 
                 //---------------------------------------------------
-                // (3) 스크롤 효과
+                // (3) 고정 효과 (즉시 표시)
                 //---------------------------------------------------
-                textItem.effect.inEffet = EffectType.LEFT_SERIES_MOVE;
+                textItem.effect.inEffet = EffectType.IMMEDIATE_SHOW;   // ✅ 스크롤 대신 즉시 표시
                 textItem.effect.outEffet = EffectType.NOT_CLEAR_AREA;
-                textItem.effect.duration = 15;   // 조금 더 느리게
+                textItem.effect.duration = 60;                         // 유지 시간 (초 단위)
 
                 area.AddText(textItem);
 
@@ -199,17 +199,13 @@ namespace HuiduTest2
                 // (4) 전송
                 //---------------------------------------------------
                 _selected.SendScreen(screen);
-                Log($"LED updated (scroll, rotated 90°): \"{text}\"");
+                Log($"LED updated (no scroll): \"{text}\"");
             }
             catch (Exception ex)
             {
                 Log("LED send error: " + ex.Message);
             }
         }
-
-
-
-
 
 
 
