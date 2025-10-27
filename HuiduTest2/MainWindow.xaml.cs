@@ -20,8 +20,8 @@ namespace HuiduTest2
         private Timer _weatherTimer;
 
         //  OpenWeatherMap API
-        private const string API_KEY = "c4d7023ec1c989df75f403cb5f291963";
-        private const double LAT = 37.5665;  // 서울
+        private const string API_KEY = "c4d7023ec1c989df75f403cb5f291963";  // OpenWeatherMap 사이트 회원가입하고 api키 발급 받아야됨
+        private const double LAT = 37.5665;  // 서울 위도, 경도 지정
         private const double LON = 126.9780;
 
         public MainWindow()
@@ -44,7 +44,7 @@ namespace HuiduTest2
                 _comm = new HDCommunicationManager();
                 _comm.MsgReport += Comm_MsgReport;
                 _comm.ResolvedInfoReport += Comm_ResolvedInfoReport;
-                _comm.Listen(new IPEndPoint(IPAddress.Any, 10001));
+                _comm.Listen(new IPEndPoint(IPAddress.Any, 10001));   //후이두 TCP 포트번호는 10001번으로 지정되어 있으므로 10001로 
                 Log("Listening on port 10001...");
 
                 _comm.StartScanLANDevice();
@@ -157,21 +157,20 @@ namespace HuiduTest2
                 });
                 screen.Programs.Add(program);
 
-                //---------------------------------------------------
-                // (1) 90° 회전 고려 — 폭/높이 반전
-                //---------------------------------------------------
+               
+                //90° 회전 고려 — 폭/높이 반전
                 var area = program.AddArea(new AreaParam()
                 {
                     guid = Guid.NewGuid().ToString(),
                     x = 0,
                     y = 0,
-                    width = info.screenHeight,     // ← 실제 폭 (세로형 LED 보정)
-                    height = info.screenWidth      // ← 실제 높이
+                    width = info.screenHeight,     //실제 폭 (세로형 LED 보정)
+                    height = info.screenWidth      //실제 높이
                 });
 
-                //---------------------------------------------------
-                // (2) 텍스트 설정 (고정 표시)
-                //---------------------------------------------------
+            
+                //  텍스트 설정 (고정 표시)
+              
                 var textItem = new TextAreaItemParam()
                 {
                     guid = Guid.NewGuid().ToString(),
@@ -186,18 +185,17 @@ namespace HuiduTest2
                     useBackgroundColor = false
                 };
 
-                //---------------------------------------------------
-                // (3) 고정 효과 (즉시 표시)
-                //---------------------------------------------------
-                textItem.effect.inEffet = EffectType.IMMEDIATE_SHOW;   // ✅ 스크롤 대신 즉시 표시
+             
+                // 고정 효과 (즉시 표시)
+            
+                textItem.effect.inEffet = EffectType.IMMEDIATE_SHOW;   //스크롤 대신 즉시 표시
                 textItem.effect.outEffet = EffectType.NOT_CLEAR_AREA;
                 textItem.effect.duration = 60;                         // 유지 시간 (초 단위)
 
                 area.AddText(textItem);
 
-                //---------------------------------------------------
-                // (4) 전송
-                //---------------------------------------------------
+              
+                // 전송
                 _selected.SendScreen(screen);
                 Log($"LED updated (no scroll): \"{text}\"");
             }
