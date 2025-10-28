@@ -164,8 +164,8 @@ namespace HuiduTest2
                     guid = Guid.NewGuid().ToString(),
                     x = 0,
                     y = 0,
-                    width = info.screenHeight,     //실제 폭 (세로형 LED 보정)
-                    height = info.screenWidth      //실제 높이
+                    width =  128,    //실제 폭 (세로형 LED 보정)
+                    height = 128      //실제 높이
                 });
 
             
@@ -176,8 +176,8 @@ namespace HuiduTest2
                     guid = Guid.NewGuid().ToString(),
                     text = text,                       // 예: "현재 날씨 약간의 구름이 낀 하늘 22.8℃"
                     fontName = "Arial",
-                    fontSize = 18,                      // 크기 살짝 줄이면 짤림 방지
-                    color = Color.Yellow,
+                    fontSize = 25,                      // 크기 살짝 줄이면 짤림 방지
+                    color = Color.Blue,
                     bold = true,
                     hAlignment = SDKLibrary.HorizontalAlignment.center, // 중앙 정렬
                     vAlignment = SDKLibrary.VerticalAlignment.middle,   // 수직 중앙 정렬
