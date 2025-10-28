@@ -112,24 +112,32 @@ namespace HuiduTest2
                 {
                     var response = await client.GetStringAsync(url);
                     Dispatcher.Invoke(() => Log("API Raw JSON:\n" + response));
+
                     JObject json = JObject.Parse(response);
 
-                    string condition = json["weather"]?[0]?["description"] != null
-                        ? json["weather"][0]["description"].ToString()
-                        : "?";
+                    // 데이터 추출
+                    string city = json["name"]?.ToString() ?? "Unknown";
+                    string condition = json["weather"]?[0]?["description"]?.ToString() ?? "?";
+                    double temp = json["main"]?["temp"]?.ToObject<double>() ?? 0;
+                    double feels = json["main"]?["feels_like"]?.ToObject<double>() ?? 0;
+                    int humidity = json["main"]?["humidity"]?.ToObject<int>() ?? 0;
+                    double wind = json["wind"]?["speed"]?.ToObject<double>() ?? 0;
 
-                    double temp = json["main"]?["temp"] != null
-                        ? json["main"]["temp"].ToObject<double>()
-                        : 0;
-
+                    // WPF UI 표시
                     Dispatcher.Invoke(delegate
                     {
-                        WeatherText.Text = condition;
-                        TempText.Text = string.Format("{0:F1} ℃", temp);
+                        // 예시: 맑음 12.8℃ (체감 11.1℃)
+                        WeatherText.Text = $"{city}  {condition}";
+                        TempText.Text = $"{temp:F1}℃ (체감 {feels:F1}℃)\n습도 {humidity}%  바람 {wind:F1}m/s";
                     });
 
+                    // LED 표시 텍스트 구성
+                    string ledText =
+                        $" {city}  {condition}  {temp:F1}℃ (체감 {feels:F1}℃)\r\n" +
+                        $" 습도 {humidity}%  바람 {wind:F1}m/s";
+
                     if (_selected != null)
-                        SendToLed(condition + "  " + string.Format("{0:F1}℃", temp));
+                        SendToLed(ledText);
                 }
             }
             catch (Exception ex)
@@ -137,6 +145,8 @@ namespace HuiduTest2
                 Dispatcher.Invoke(delegate { Log("Weather update error: " + ex.Message); });
             }
         }
+
+
 
         //  전광판으로 텍스트 출력
         private void SendToLed(string text)
@@ -146,7 +156,7 @@ namespace HuiduTest2
                 if (_selected == null) return;
 
                 var info = _selected.GetDeviceInfo();
-                Log($"Screen size: {info.screenWidth} x {info.screenHeight}, rotation=90°");
+                Log($"Screen size: {info.screenWidth} x {info.screenHeight}, rotation=0°");
 
                 // 새 화면 및 프로그램 생성
                 var screen = new HdScreen(new ScreenParam() { isNewScreen = true });
@@ -164,8 +174,8 @@ namespace HuiduTest2
                     guid = Guid.NewGuid().ToString(),
                     x = 0,
                     y = 0,
-                    width =  128,    //실제 폭 (세로형 LED 보정)
-                    height = 128      //실제 높이
+                    width =  190,    //실제 폭 (세로형 LED 보정)
+                    height = 90      //실제 높이
                 });
 
             
@@ -176,7 +186,7 @@ namespace HuiduTest2
                     guid = Guid.NewGuid().ToString(),
                     text = text,                       // 예: "현재 날씨 약간의 구름이 낀 하늘 22.8℃"
                     fontName = "Arial",
-                    fontSize = 25,                      // 크기 살짝 줄이면 짤림 방지
+                    fontSize = 13,                      // 크기 살짝 줄이면 짤림 방지
                     color = Color.Blue,
                     bold = true,
                     hAlignment = SDKLibrary.HorizontalAlignment.center, // 중앙 정렬
