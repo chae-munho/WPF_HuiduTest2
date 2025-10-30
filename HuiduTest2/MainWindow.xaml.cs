@@ -163,12 +163,12 @@ namespace HuiduTest2
                     if (_isDisplayingWeather)
                     {
                         SendToLed(_lastWeather, Color.LightBlue);
-                        Log("📡 [LED] Weather displayed (5s)");
+                        Log("[LED] Weather displayed (5s)");
                     }
                     else
                     {
                         SendToLed(_lastDust, _lastDustColor);
-                        Log("📡 [LED] Dust displayed (5s)");
+                        Log("[LED] Dust displayed (5s)");
                     }
 
                     await Task.Delay(5000); // 5초간 표시
@@ -202,7 +202,7 @@ namespace HuiduTest2
                     x = 0,
                     y = 0,
                     width = 192,
-                    height = 96
+                    height = 128
                 });
 
                 var textItem = new TextAreaItemParam()
