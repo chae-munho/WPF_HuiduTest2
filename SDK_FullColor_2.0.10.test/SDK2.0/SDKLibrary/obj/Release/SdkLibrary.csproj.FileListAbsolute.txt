@@ -1,0 +1,6 @@
+C:\Users\Administrator\Desktop\SDK_FullColor_2.0.10(1).test\SDK2.0\SDKLibrary\bin\Release\SDKLibrary.dll
+C:\Users\Administrator\Desktop\SDK_FullColor_2.0.10(1).test\SDK2.0\SDKLibrary\bin\Release\SDKLibrary.pdb
+C:\Users\Administrator\Desktop\SDK_FullColor_2.0.10(1).test\SDK2.0\SDKLibrary\obj\Release\SdkLibrary.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\SDK_FullColor_2.0.10(1).test\SDK2.0\SDKLibrary\obj\Release\SdkLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\SDK_FullColor_2.0.10(1).test\SDK2.0\SDKLibrary\obj\Release\SDKLibrary.dll
+C:\Users\Administrator\Desktop\SDK_FullColor_2.0.10(1).test\SDK2.0\SDKLibrary\obj\Release\SDKLibrary.pdb
